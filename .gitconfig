@@ -1,0 +1,31 @@
+[user]
+	name = Grigory Ustinov
+	email = grenka@altlinux.org
+	signingkey = 6262D719
+
+[color]
+        ui = true
+
+[alias]
+	st = status
+	br = branch
+	co = checkout
+
+	go = !sh -c 'git add . && git commit'
+	pf = push -f
+	fuck = push --tags -f
+	wtf = status
+	ca = commit -a --amend
+	dc = diff --check
+
+	last = log -p -1
+	stash-unapply = !git stash show -p | git apply -R
+	lg = log --pretty=format:"%h%Creset'  ||  '%Cblue%an%Creset'  --->  '%Cred%s" --graph
+
+[core]
+	excludesfile = ~/.gitignore_global
+	autocrlf = input
+	whitespace = trailing-space,space-before-tab,indent-with-non-tab
+
+[help]
+	autocorrect = 1
