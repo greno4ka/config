@@ -1,0 +1,81 @@
+alignment top_right
+background yes
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+imlib_cache_size 0
+update_interval 1
+cpu_avg_samples 1
+format_human_readable
+minimum_size 230
+
+gap_x 0
+gap_y 0
+
+own_window yes
+own_window_type normal	# options are: normal/override/dock/desktop/panel
+own_window_class Conky
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent yes
+
+border_inner_margin 0
+border_outer_margin 0
+
+default_bar_size 100 6
+draw_shades no
+default_shade_color 000000
+draw_outline no
+default_outline_color 000000
+draw_borders no
+draw_graph_borders yes
+default_graph_size 40,220
+show_graph_scale no
+show_graph_range no
+
+override_utf8_locale yes
+use_xft yes
+xftfont ADELE:size=10,weight:normal
+xftalpha 1
+uppercase no
+max_text_width 40
+
+default_color ffffff
+color1 ffffff
+color2 ff2525
+
+TEXT
+# time
+${color2}${goto 10}${font DejaVu Sans:size=35}${time %H:%M:%S}
+# date
+${color2}${goto 85}${voffset -30}${font :size=10}${time %A}
+${color2}${goto 85}${voffset 0}${font :size=10}${time %d %B %Y}
+# calendar
+${color1}${voffset 10}${font DejaVu Sans Mono:size=8}${execpi 3600 DJS=`date +%_d`; cal -m | sed '1d' | sed '/./!d' | sed 's/$/                     /' | fold -w 21 | sed -n '/^.\{21\}/p' | sed 's/^/${alignc} /' | sed /" $DJS "/s/" $DJS "/" "'${color2}'"$DJS"'${color}'" "/}${font}
+# cpu
+${font DejaVu Sans Mono:size=9}${voffset -50}
+${goto 40}${color1}CPU1: ${cpu cpu1}%${alignr 10} ${freq_g 1}Ггц ${exec sensors|grep 'Core 0'|awk '{print $3}'}
+${goto 40}${color2}${cpubar cpu1 10,160}
+${goto 40}${color1}CPU2: ${cpu cpu2}%${alignr 10} ${freq_g 2}Ггц ${exec sensors|grep 'Core 1'|awk '{print $3}'}
+${goto 40}${color2}${cpubar cpu2 10,160}
+${goto 40}${color1}CPU3: ${cpu cpu3}%${alignr 10} ${freq_g 3}Ггц ${exec sensors|grep 'Core 2'|awk '{print $3}'}
+${goto 40}${color2}${cpubar cpu3 10,160}
+${goto 40}${color1}CPU4: ${cpu cpu4}%${alignr 10} ${freq_g 4}Ггц ${exec sensors|grep 'Core 3'|awk '{print $3}'}
+${goto 40}${color2}${cpubar cpu4 10,160}
+# memory
+${goto 40}${color1} ОЗУ: ${mem} ${alignr} ${memperc}% 
+${goto 40}${color2}${membar 10,160}
+${goto 40}${color}SWAP: ${swap} ${alignr} ${swapperc}% 
+${goto 40}${color2}${swapbar 10,160}
+${goto 40}${color1}root: ${fs_used /} ${alignr}${fs_used_perc /}% 
+${goto 40}${color2}${fs_bar 10,160 /}
+${goto 40}${color1}home: ${fs_used /home}${alignr} ${fs_used_perc /home}% 
+${goto 40}${color2}${fs_bar 10,160 /home}
+
+${voffset -20}
+${goto 40}${color1}Вх. ск:${alignr 10}${upspeed wlan0}
+${goto 40}Всего:${alignr 10}${totalup wlan0}
+${goto 40}${color2}${upspeedgraph wlan0 20,160 100 -l}
+${goto 40}${color1}Исх. ск:$color1${alignr 10}${downspeed wlan0}
+${goto 40}Всего:${alignr 10}${totaldown wlan0}
+${goto 40}${color2}${downspeedgraph wlan0 20,160 100 -l}
+${color1}${goto 40}Батарея ${color2}${battery_bar 5,75}${color1} ${battery_percent}%
