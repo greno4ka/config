@@ -4,7 +4,23 @@
 	signingkey = 6262D719
 
 [color]
-        ui = true
+	ui = true
+
+[color "branch"]
+	current = yellow reverse
+	local = green
+	remote = cyan
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red
+	new = cyan bold
+	whitespace = red reverse
+
+[color "status"]
+	added = yellow
+	changed = cyan dim
 
 [alias]
 	st = status
@@ -18,9 +34,13 @@
 	ca = commit -a --amend
 	dc = diff --check
 
-	last = log -p -1
+	ss = !sh -c 'git push -f sisyphus sisyphus && git push -f --tags sisyphus sisyphus'
+
 	stash-unapply = !git stash show -p | git apply -R
-	lg = log --pretty=format:"%h%Creset'  ||  '%Cblue%an%Creset'  --->  '%Cred%s" --graph
+	lg = log --pretty=format:"%h%Creset' '%C(yellow)%ar' '%Cblue%an%Creset'  --->  '%C(bold)%Cred%s" --graph
+
+	ras = !sh -c 'git remote add sisyphus git.alt:/people/grenka/packages/$(basename $(pwd))'
+	cmg = "!f(){ name=$1; cd ~/MYPACKAGES && git clone git.alt:/people/grenka/packages/$name ; };f"
 
 [core]
 	excludesfile = ~/.gitignore_global
